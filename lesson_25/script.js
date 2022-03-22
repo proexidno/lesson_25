@@ -14,23 +14,26 @@ $("li").each( function (index) {
         $(this).append($("<div>").attr("row", index).attr("col", i).css("background-image", "url(/images/hex.jpg)"))
     }
 });
-let B = undefined
+let B = []
 console.log(AnswGrid);
 $("ul div").click( function () {
     if ($(this).css("background-image") == hex){
         let ID = Number($(this).attr("row")) * 4 + Number($(this).attr("col")), thisObj = $(this);
         $(this).css("background-image", "url(" + AnswGrid[ID] + ")")
         if (k) {
-            ID2 = Number(B.attr("row")) * 4 + Number(B.attr("col"));
+            ID2 = Number(B[0].attr("row")) * 4 + Number(B[0].attr("col"));
             if (AnswGrid[ID] != AnswGrid[ID2] && ID != ID2) {
+                let f = B[0]
                 let timeout = setTimeout(function () {
                     thisObj.css("background-image", hex)
-                    B.css("background-image", hex)
+                    f.css("background-image", hex)
                 }, 1000)
             }
+            B.splice(0, 1)
             k = false
+            console.log(1);
         }else {
-            B = $(this)
+            B.push($(this))
             k = true
         }
     }
